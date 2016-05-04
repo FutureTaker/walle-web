@@ -14,7 +14,7 @@ return [
         'db' => [
             'dsn'       => 'mysql:host=127.0.0.1;dbname=walle',
             'username'  => 'root',
-            'password'  => '',
+            'password'  => '123456',
         ],
         'mail' => [
             'transport' => [

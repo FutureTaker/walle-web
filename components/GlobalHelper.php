@@ -100,7 +100,7 @@ class GlobalHelper {
     public static function isValidAdmin() {
         return \Yii::$app->user
             && \Yii::$app->user->identity->role == User::ROLE_ADMIN
-            && \Yii::$app->user->identity->is_email_verified == User::MAIL_ACTIVE
+//            && \Yii::$app->user->identity->is_email_verified == User::MAIL_ACTIVE
             && \Yii::$app->user->identity->status == User::STATUS_ADMIN_ACTIVE;
     }
 

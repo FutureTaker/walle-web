@@ -130,17 +130,26 @@ class Folder extends Ansible {
      * @return bool
      */
     public function getLinkCommand($version) {
+        $jarPro=array("model");
         $user = $this->config->release_user;
         $project = Project::getGitProjectName($this->getConfig()->repo_url);
         $currentTmp = sprintf('%s/%s/current-%s.tmp', rtrim($this->getConfig()->release_library, '/'), $project, $project);
         // 遇到回滚，则使用回滚的版本version
         $linkFrom = Project::getReleaseVersionDir($version);
+        //todo 根据不同打包类型进行软链,如jar,war
+        if(in_array($project,$jarPro)){
+            $linkFrom = $linkFrom."/target/".$project.".jar";
+        }else{
+            $linkFrom = $linkFrom."/target/".$project.".war";
+        }
         $cmd[] = sprintf('ln -sfn %s %s', $linkFrom, $currentTmp);
         $cmd[] = sprintf('chown -h %s %s', $user, $currentTmp);
         $cmd[] = sprintf('mv -fT %s %s', $currentTmp, $this->getConfig()->release_to);
 
         return join(' && ', $cmd);
     }
+
+
 
     /**
      * 获取文件的MD5

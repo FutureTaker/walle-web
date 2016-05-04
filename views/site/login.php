@@ -34,21 +34,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div><!-- /widget-main -->
 
-        <div class="toolbar clearfix">
-            <div>
-                <a href="<?= Url::to('@web/site/request-password-reset') ?>" class="forgot-password-link">
-                    <i class="icon-arrow-left"></i>
-                    <?= yii::t('w','login forgot password')?>
-                </a>
-            </div>
-
-            <div>
-                <a href="<?= Url::to('@web/site/signup') ?>" class="user-signup-link">
-                    <?= yii::t('w','login register user')?>
-                    <i class="icon-arrow-right"></i>
-                </a>
-            </div>
-        </div>
+<!--        <div class="toolbar clearfix">-->
+<!--            <div>-->
+<!--                <a href="--><?//= Url::to('@web/site/request-password-reset') ?><!--" class="forgot-password-link">-->
+<!--                    <i class="icon-arrow-left"></i>-->
+<!--                    --><?//= yii::t('w','login forgot password')?>
+<!--                </a>-->
+<!--            </div>-->
+<!---->
+<!--            <div>-->
+<!--                <a href="--><?//= Url::to('@web/site/signup') ?><!--" class="user-signup-link">-->
+<!--                    --><?//= yii::t('w','login register user')?>
+<!--                    <i class="icon-arrow-right"></i>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div><!-- /widget-body -->
 </div><!-- /login-box -->

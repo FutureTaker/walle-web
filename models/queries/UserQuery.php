@@ -11,8 +11,9 @@ class UserQuery extends ActiveQuery
      */
     public function canLogin()
     {
-        return $this->andWhere(['is_email_verified' => 1,])
-            ->andWhere(['>=', 'status', User::STATUS_ACTIVE,]);
+//        return $this->andWhere(['is_email_verified' => 1,])
+//            ->andWhere(['>=', 'status', User::STATUS_ACTIVE,]);
+        return $this->andWhere(['>=', 'status', User::STATUS_ACTIVE,]);
     }
 
     /**

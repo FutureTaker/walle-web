@@ -53,9 +53,9 @@ use app\models\User;
                             <?php if ($row['status'] == User::STATUS_INVALID) { ?>
                                 <i class="icon icon-ban-circle red" data-placement="top" data-rel="tooltip" data-title="<?= yii::t('user', 'status to opposite 10') ?>"></i>
                             <?php } ?>
-                            <?php if ($row['is_email_verified'] == User::MAIL_INACTIVE) { ?>
-                                <i class="icon icon-envelope red" data-placement="top" data-rel="tooltip" data-title="<?= yii::t('user', 'inactive') ?>"></i>
-                            <?php } ?>
+<!--                            --><?php //if ($row['is_email_verified'] == User::MAIL_INACTIVE) { ?>
+<!--                                <i class="icon icon-envelope red" data-placement="top" data-rel="tooltip" data-title="--><?//= yii::t('user', 'inactive') ?><!--"></i>-->
+<!--                            --><?php //} ?>
                         </td>
                         <td>
                             <div class="nav">
