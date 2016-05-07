@@ -169,6 +169,13 @@ use yii\widgets\ActiveForm;
                           ])
                           ->label(yii::t('conf', 'keep version').'<small><i class="light-blue icon-asterisk"></i></small>',
                               ['class' => 'text-right bolder']) ?>
+                      <?= $form->field($conf, 'keep_version_num')
+                          ->dropDownList(
+                              array('id'=>'views'),           // Flat array ('id'=>'label')
+                              ['prompt'=>'']    // options
+                          )
+                      ->label(yii::t('conf', 'host_group').'<small><i class="light-blue icon-asterisk"></i></small>',
+                              ['class' => 'text-right bolder']) ?>
                       <?= $form->field($conf, 'hosts')
                           ->textarea([
                               'placeholder'    => '192.168.0.1' . PHP_EOL . '192.168.0.2:8888',

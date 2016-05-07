@@ -195,6 +195,15 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->realname;
     }
 
+    public static function getNameById($id){
+        $name = "";
+        $user = self::findIdentity($id);
+        if($user){
+            $name = $user->realname;
+        }
+        return $name;
+    }
+
     /**
      * @inheritdoc
      */

@@ -69,7 +69,7 @@ $userName =  \Yii::$app->user->id ? $user->getName() : '';
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="javascript:;" class="navbar-brand">
-                <small>Walle</small>
+                <small>Walle up</small>
             </a><!-- /.brand -->
         </div><!-- /.navbar-header -->
 
@@ -210,6 +210,30 @@ $userName =  \Yii::$app->user->id ? $user->getName() : '';
             <ul class="nav nav-list">
 
                 <?php if (\Yii::$app->user->identity->role == app\models\User::ROLE_ADMIN) { ?>
+                <li>
+                    <a href="<?= Url::to('@web/host/list')?>" class="dropdown-toggle">
+                        <i class="icon-group"></i>
+                        <span class="menu-text"> 主机管理 </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" style="display: none;">
+                        <li>
+                            <a href="<?= Url::to('@web/host/list') ?>">
+                                <i class="icon-double-angle-right"></i>
+                                主机列表
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?= Url::to('@web/host/add') ?>">
+                                <i class="icon-double-angle-right"></i>
+                                添加主机
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="<?= \Yii::$app->controller->id == 'conf' ? 'active' : '' ?>">
                     <a href="<?= Url::to('@web/conf/') ?>">
                         <i class="icon-cogs"></i>
@@ -284,7 +308,7 @@ $userName =  \Yii::$app->user->id ? $user->getName() : '';
                 <ul class="breadcrumb">
                     <li>
                         <i class="icon-home home-icon"></i>
-                        <a href="<?= Url::to('@web') ?>">
+                        <a href="<?= Url::to('@web/') ?>">
                             <?= yii::t('w', 'breadcrumb index') ?>
                         </a>
                     </li>

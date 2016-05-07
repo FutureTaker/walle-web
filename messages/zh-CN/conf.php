@@ -83,5 +83,6 @@ return [
     'js delete project' => '确定要删除该项目？',
     'js copy failed' => '复制失败: ',
     'js copy project confirm' => '确定要复制该项目？',
+    'host_group' => '主机组',
 
 ];
