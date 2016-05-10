@@ -74,4 +74,17 @@ class Idc extends ActiveRecord
         return static::find()->all();
     }
 
+    /**
+     * @return array
+     * 获取idc数组
+     */
+    public static function getIdcArray(){
+        $idc_array = array();
+        $list = self::getIdcList();
+        foreach ($list as $idc){
+            $idc_array[$idc->id]=$idc->name;
+        }
+        return $idc_array;
+    }
+
 }

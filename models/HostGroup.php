@@ -60,6 +60,30 @@ class HostGroup extends LogActiveRecord
     }
 
     /**
+     * @param $groupId
+     * @return mixed
+     * 找到组内所有记录
+     */
+    public function findAllByGroup($groupId){
+        return static::find()
+            ->where(['group' => $groupId])->all();
+    }
+
+    /**
+     * @param $groupId
+     * @return mixed
+     * 获取组内所有主机id
+     */
+    public static function finAllHostIdByGroup($groupId){
+        $host_array = array();
+        $group_list =  self::findAllByGroup($groupId);
+        foreach ($group_list as $group){
+            array_push($host_array, $group->host);
+        }
+        return $host_array;
+    }
+
+    /**
      * @param $hostId
      * @return string
      * 获取所在所有组名
