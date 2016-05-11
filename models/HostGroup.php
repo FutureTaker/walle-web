@@ -34,6 +34,7 @@ class HostGroup extends LogActiveRecord
     public function attributeLabels()
     {
         return [
+            'id'=>'主键id',
             'host' => '主机id',
             'group' => '所属组id',
         ];
@@ -98,6 +99,28 @@ class HostGroup extends LogActiveRecord
             }
         }
         return implode(",", $groupName);
+    }
+
+    /**
+     * @param $hostId
+     * @return string
+     * 获取所在所有组Id
+     */
+    public static function findGroupId($hostId){
+        $groupId = array();
+        $hostGroupList = self::findAllByHost($hostId);
+        foreach ($hostGroupList as $hostGroup){
+            array_push($groupId,$hostGroup->group);
+        }
+        return $groupId;
+    }
+
+    /**
+     * @param $host_id
+     * 删除主机所在分组关联
+     */
+    public static function deleteByHostId($host_id){
+        HostGroup::deleteAll(['host' => $host_id]);
     }
 
 }

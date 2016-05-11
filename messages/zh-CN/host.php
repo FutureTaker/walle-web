@@ -63,4 +63,5 @@ return [
     'created_at' => '创建时间',
     'ip exists' => 'ip已经存在',
     'add host' => '新增主机',
+    'update host' => '修改主机',
 ];

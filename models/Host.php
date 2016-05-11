@@ -45,6 +45,14 @@ class Host extends ActiveRecord
         return new HostQuery(get_called_class());
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function findById($id){
+        $host = static::findOne($id);
+        return $host;
+    }
 
     /**
      * @inheritdoc

@@ -60,18 +60,38 @@ class HostController extends Controller {
      */
     public function actionAdd() {
         $model = new AddHostForm();
-
+        $id = 0;
+        if(Yii::$app->request->get()) {
+            $id = Yii::$app->request->get()['id'];
+        }
         if ($model->load(Yii::$app->request->post()) ) {
-            if ($host = $model->saveHost()) {
+            $model->id = $id;
+            $host_group = Yii::$app->request->post()['AddHostForm']['host_group'];
+            if ($host = $model->saveHost($host_group)) {
                 return $this->redirect('@web/host/list');
             }
             else {
                 throw new \Exception(yii::t('host', 'ip exists'));
             }
+        }else{
+            if($id){
+                $host = Host::findById($id);
+                if($host){
+                    $model->ip = $host->ip;
+                    $model->idc = $host->idc;
+                    $model->state = $host->state;
+                    $model->desc = $host->desc;
+                    //获取主机所在所有组id
+                    $model->host_group = HostGroup::findGroupId($id);
+                }
+            }
         }
-
+        //获取所有分组
+        $group_array = HostGroupInfo::getGroupArray();
         return $this->render('add', [
-            'model' => $model
+            'model' => $model,
+            'id'=>$id,
+            'group_array' => $group_array
         ]);
     }
 

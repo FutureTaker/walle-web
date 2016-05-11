@@ -55,6 +55,7 @@ use app\models\User;
         <table class="table table-striped table-bordered table-hover">
             <tbody>
                 <tr>
+                    <th>id</th>
                     <th><?= yii::t('host', 'ip') ?></th>
                     <th><?= yii::t('host', 'idc') ?></th>
                     <th><?= yii::t('host', 'host_group') ?></th>
@@ -62,9 +63,11 @@ use app\models\User;
                     <th><?= yii::t('host', 'state') ?></th>
                     <th><?= yii::t('host', 'creator') ?></th>
                     <th><?= yii::t('host', 'created_at') ?></th>
+                    <th><?= yii::t('user', 'option') ?></th>
                 </tr>
                 <?php foreach ($hostList as $row) {?>
                     <tr>
+                        <td><?= $row['id'] ?></td>
                         <td><?= $row['ip'] ?></td>
                         <td><?= \app\models\Idc::getNameById($row['idc']) ?></td>
                         <td><?= \app\models\HostGroup::findGroupNameStr($row['id']) ?></td>
@@ -77,6 +80,20 @@ use app\models\User;
                         <?php } ?>
                         <td><?= User::getNameById($row['creator']) ?></td>
                         <td><?= $row['created_at'] ?></td>
+                        <td>
+                            <div class="nav">
+                                <li>
+                                    <a style="padding: 0" data-toggle="dropdown" class="dropdown-toggle" href="javascript:void();">
+                                        <i class="icon-cog"></i>&nbsp;<?= yii::t('w', 'option') ?>
+                                        <i class="icon-caret-down bigger-110 width-auto"></i>
+                                    </a>
+                                    <ul class="dropdown-menu data-user">
+                                        <li><a href="/host/add?id=<?= $row['id']?>" ><i class="icon-pencil"></i> <?= yii::t('w', 'edit') ?></a></li>
+                                    </ul>
+                                </li>
+
+                            </div>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>

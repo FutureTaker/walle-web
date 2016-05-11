@@ -74,4 +74,16 @@ class HostGroupInfo extends LogActiveRecord
     public static function getGroupList(){
         return static::find()->all();
     }
+
+    /**
+     * 获取分组数组id=>name格式
+     */
+    public static function getGroupArray(){
+        $group_array = array();
+        $list = self::getGroupList();
+        foreach ($list as $group){
+            $group_array[$group->id]=$group->name;
+        }
+        return $group_array;
+    }
 }

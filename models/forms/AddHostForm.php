@@ -3,11 +3,12 @@
 namespace app\models\forms;
 
 use app\models\Host;
+use app\models\HostGroup;
 use yii;
 use yii\base\Model;
 
 class AddHostForm extends Model {
-
+    public $id;
     public $ip;
     public $idc;
     public $state;
@@ -15,6 +16,7 @@ class AddHostForm extends Model {
     public $created_at;
     public $updated_at;
     public $creator;
+    public $host_group;
 
 
     public function attributeLabels()
@@ -29,26 +31,47 @@ class AddHostForm extends Model {
 
     public function rules() {
         return [
+            ['ip','ip'],
             [['ip',  'idc', 'state', 'desc'], 'required'],
             ['state', 'in', 'range' => [Host::HOST_ACTIVE,Host::HOST_INACTIVE]],
         ];
     }
 
-    public function saveHost() {
+    public function saveHost($host_group) {
         if ($this->validate()) {
-            $current_date = date("Y-m-d H:i:s");
-            $host = new Host();
-            $host->ip = $this->ip;
-            $host->idc = $this->idc;
-            $host->state = $this->state;
-            $host->desc = $this->desc;
-            $host->created_at = $current_date;
-            $host->updated_at = $current_date;
-            $host->creator = Yii::$app->user->id;
+            /***涉及多表操作,采用事务**/
+            $transaction = Yii::$app->db->beginTransaction();
 
-            if ($host->save(false)) {
-                print_r($host->getErrors());
-                return $host;
+            try {
+                $current_date = date("Y-m-d H:i:s");
+                $host = Host::findById($this->id);
+                if (empty($host)) {
+                    $host = new Host();
+                } else {
+                    //先删除之前分组
+                    HostGroup::deleteByHostId($this->id);
+                }
+                $host->ip = $this->ip;
+                $host->idc = $this->idc;
+                $host->state = $this->state;
+                $host->desc = $this->desc;
+                $host->created_at = $current_date;
+                $host->updated_at = $current_date;
+                $host->creator = Yii::$app->user->id;
+                if ($host->save(false)) {
+                    $id = $host->attributes['id'];
+                    //批量生成主机与组间关系
+                    foreach ($host_group as $group) {
+                        $host_group_model = new HostGroup();
+                        $host_group_model->host = $id;
+                        $host_group_model->group = $group;
+                        $host_group_model->save(false);
+                    }
+                    $transaction->commit();
+                    return $host;
+                }
+            }catch (\Exception $e){
+                $transaction->rollBack();
             }
 
             return null;
