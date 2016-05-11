@@ -26,13 +26,14 @@ class AddHostForm extends Model {
             'idc' => '所属机房',
             'state' => '状态',
             'desc' => '描述',
+            'host_group'=>'主机分组',
         ];
     }
 
     public function rules() {
         return [
             ['ip','ip'],
-            [['ip',  'idc', 'state', 'desc'], 'required'],
+            [['idc', 'state', 'desc', 'host_group'], 'required'],
             ['state', 'in', 'range' => [Host::HOST_ACTIVE,Host::HOST_INACTIVE]],
         ];
     }
@@ -47,11 +48,11 @@ class AddHostForm extends Model {
                 $host = Host::findById($this->id);
                 if (empty($host)) {
                     $host = new Host();
+                    $host->ip = $this->ip;
                 } else {
                     //先删除之前分组
                     HostGroup::deleteByHostId($this->id);
                 }
-                $host->ip = $this->ip;
                 $host->idc = $this->idc;
                 $host->state = $this->state;
                 $host->desc = $this->desc;

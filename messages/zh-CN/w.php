@@ -77,4 +77,5 @@ return [
     'option' => '操作',
     'btn sure' => '确认',
     'btn cancel' => '取消',
+    'change'=>'切换状态',
 ];

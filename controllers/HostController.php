@@ -54,6 +54,24 @@ class HostController extends Controller {
         ]);
     }
 
+    /**
+     * @return mixed
+     * 主机下线
+     */
+    public function actionChange(){
+        if(Yii::$app->request->get()) {
+            $id = Yii::$app->request->get()['id'];
+            $state = Yii::$app->request->get()['state'];
+            if($state == Host::HOST_INACTIVE){
+                $state = Host::HOST_ACTIVE;
+            }else{
+                $state = Host::HOST_INACTIVE;
+            }
+            Host::updateStateById($id, $state);
+        }
+        return $this->redirect('@web/host/list');
+    }
+
 
     /**
      * 新增主机

@@ -212,7 +212,7 @@ $userName =  \Yii::$app->user->id ? $user->getName() : '';
                 <?php if (\Yii::$app->user->identity->role == app\models\User::ROLE_ADMIN) { ?>
                 <li>
                     <a href="<?= Url::to('@web/host/list')?>" class="dropdown-toggle">
-                        <i class="icon-group"></i>
+                        <i class="icon-cloud"></i>
                         <span class="menu-text"> 主机管理 </span>
 
                         <b class="arrow icon-angle-down"></b>

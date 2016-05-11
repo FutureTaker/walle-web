@@ -80,4 +80,15 @@ class Host extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $id
+     * @param $state
+     * @return mixed
+     * 更改主机状态
+     */
+    public static function updateStateById($id, $state){
+        $res = Host::updateAll(['state' => $state], ['id' => $id]);
+        return $res;
+    }
+
 }

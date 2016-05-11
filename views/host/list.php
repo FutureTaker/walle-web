@@ -89,6 +89,7 @@ use app\models\User;
                                     </a>
                                     <ul class="dropdown-menu data-user">
                                         <li><a href="/host/add?id=<?= $row['id']?>" ><i class="icon-pencil"></i> <?= yii::t('w', 'edit') ?></a></li>
+                                        <li><a href="/host/change?id=<?= $row['id']?>&state=<?=$row['state']?>"> <i class="icon-refresh"></i> <?= yii::t('w', 'change') ?></a></li>
                                     </ul>
                                 </li>
 

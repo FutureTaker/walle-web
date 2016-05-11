@@ -77,4 +77,5 @@ return [
     'option' => 'Option',
     'btn sure' => 'Sure',
     'btn cancel' => 'Cancel',
+    'change'=>'切换状态',
 ];
