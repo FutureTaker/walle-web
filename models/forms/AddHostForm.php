@@ -33,7 +33,7 @@ class AddHostForm extends Model {
     public function rules() {
         return [
             ['ip','ip'],
-            [['idc', 'state', 'desc', 'host_group'], 'required'],
+            [['ip','idc', 'state', 'desc', 'host_group'], 'required'],
             ['state', 'in', 'range' => [Host::HOST_ACTIVE,Host::HOST_INACTIVE]],
         ];
     }
@@ -44,8 +44,8 @@ class AddHostForm extends Model {
             $transaction = Yii::$app->db->beginTransaction();
 
             try {
-                $current_date = date("Y-m-d H:i:s");
                 $host = Host::findById($this->id);
+                $current_date = date("Y-m-d H:i:s");
                 if (empty($host)) {
                     $host = new Host();
                     $host->ip = $this->ip;

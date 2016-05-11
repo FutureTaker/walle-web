@@ -19,7 +19,7 @@ use app\models\user;
     <div class="box-body">
         <?php if($id){?>
             <?= $form->field($model, 'ip')
-                ->textInput(['class' => 'col-xs-5','disabled'=>true])
+                ->textInput(['class' => 'col-xs-5','readonly'=>true])
                 ->label(Yii::t('host', 'ip'), ['class' => 'text-right bolder blue col-xs-2']) ?>
         <?php } ?>
         <?php if(empty($id)){?>

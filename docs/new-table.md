@@ -35,3 +35,13 @@ CREATE TABLE `host_group` (
   `group` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+######初始化idc
+insert into idc(name,creator,created_at,updated_at)values('济阳机房',1,now(),now());
+insert into idc(name,creator,created_at,updated_at)values('北京机房',1,now(),now());
+insert into idc(name,creator,created_at,updated_at)values('上海机房',1,now(),now());
+
+######初始化分组
+
+
+######初始化主机
