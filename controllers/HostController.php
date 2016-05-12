@@ -23,12 +23,19 @@ class HostController extends Controller {
         //获取IDC机房信息
         $idcList = Idc::getIdcList();
         //获取分组信息
-        $groupList = HostGroupInfo::getGroupList();
-
         $hostList = Host::find()->orderBy('id desc');
-        $ip = \Yii::$app->request->post('ip');
-        $idc = \Yii::$app->request->post('idc');
-        $group = \Yii::$app->request->post('group');
+        $groupList = HostGroupInfo::getGroupList();
+        if(\Yii::$app->request->isPost) {
+            $ip = \Yii::$app->request->post('ip');
+            $idc = \Yii::$app->request->post('idc');
+            $group = \Yii::$app->request->post('group');
+            $state = \Yii::$app->request->post('state');
+        }else{
+            $ip = \Yii::$app->request->get('ip');
+            $idc = \Yii::$app->request->get('idc');
+            $group = \Yii::$app->request->get('group');
+            $state = \Yii::$app->request->get('state');
+        }
 
         if ($ip) {
             $hostList->andFilterWhere(['like', "ip", $ip]);
@@ -36,21 +43,28 @@ class HostController extends Controller {
         if ($idc){
             $hostList->andFilterWhere(['like', "idc", (int)$idc]);
         }
+        if ($state) {
+            $hostList->andFilterWhere(['like', "state", $state]);
+        }
         if ($group){
             //找到组里所有的host_id
             $hostList->andFilterWhere(['in', "id", HostGroup::finAllHostIdByGroup((int)$group)]);
         }
 
-        $pages = new Pagination(['totalCount' => $hostList->count(), 'pageSize' => $size]);
+        $totalCount = $hostList->count();
+        $pages = new Pagination(['totalCount' => $totalCount, 'pageSize' => $size,
+            'params'=>array_merge($_GET, ['ip' => $ip, 'idc' => $idc, 'group' => $group, 'state' => $state])]);
         $hostList = $hostList->offset(($page - 1) * $size)->limit($size)->asArray()->all();
         return $this->render('list', [
             'idcSelect'=>$idc,
             'ipSelect'=>$ip,
+            'stateSelect'=>$state,
             'groupSelect'=>$group,
             'hostList' => $hostList,
             'idcList' => $idcList,
             'groupList' => $groupList,
             'pages' => $pages,
+            'totalCount'=> $totalCount,
         ]);
     }
 

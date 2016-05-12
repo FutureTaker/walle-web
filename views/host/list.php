@@ -14,7 +14,7 @@ use app\models\User;
             <div class="col-xs-12 col-sm-8" style="padding-left: 0;margin-bottom: 10px;">
                 <div class="input-group">
                     <input type="text" name="ip" class="search-query" placeholder="<?= yii::t('host', 'ip_placeholder') ?>" value="<?= $ipSelect?>">
-                    <select style="margin: 20px" name="idc" class="search-query">
+                    <select style="margin: 10px" name="idc" class="search-query">
                         <option value ="">-- 请选择机房 --</option>
                         <?php foreach ($idcList as $idc) {?>
                             <?php if($idc['id']==$idcSelect){?>
@@ -25,7 +25,7 @@ use app\models\User;
                         <?php } ?>
                     </select>
 
-                    <select style="margin: 20px" name="group" class="search-query">
+                    <select style="margin: 10px" name="group" class="search-query">
                         <option value ="">-- 请选择主机组 --</option>
                         <?php foreach ($groupList as $group) {?>
                             <?php if($group['id']==$groupSelect){?>
@@ -34,6 +34,20 @@ use app\models\User;
                                 <option value="<?= $group['id']?>"><?= $group['name']?></option>
                             <?php } ?>
                         <?php } ?>
+                    </select>
+                    <select style="margin: 10px" name="state" class="search-query">
+                        <option value ="">-- 请选择主机状态 --</option>
+                        <?php if($stateSelect === ""){?>
+                            <option value="<?= \app\models\Host::HOST_ACTIVE?>">在线</option>
+                            <option value="<?= \app\models\Host::HOST_INACTIVE?>">下线</option>
+                        <?php } else if(\app\models\Host::HOST_INACTIVE == $stateSelect){?>
+                            <option value="<?= \app\models\Host::HOST_ACTIVE?>">在线</option>
+                            <option value="<?= \app\models\Host::HOST_INACTIVE?>" selected>下线</option>
+                        <?php }else{?>
+                            <option value="<?= \app\models\Host::HOST_ACTIVE ?>" selected>在线</option>
+                            <option value="<?= \app\models\Host::HOST_INACTIVE?>">下线</option>
+                        <?php } ?>
+
                     </select>
                     <span class="input-group-btn">
                         <button type="submit"
@@ -45,17 +59,19 @@ use app\models\User;
                 </div>
             </div>
         </form>
-        <a style="margin: 15px" class="btn btn-default btn-sm" href="<?= Url::to('@web/host/add') ?>">
+        <a style="margin: 8px" class="btn btn-default btn-sm" href="<?= Url::to('@web/host/add') ?>">
             <i class="icon-pencil align-top bigger-125"></i>
             <?= yii::t('host', 'add_host') ?>
         </a>
     </div><!-- /.box-header -->
-
+    <div class="clearfix" style="width: 200px;">
+        <span style="padding-left: 0px">查询到[<?= $totalCount ?>]条记录</span>
+    </div>
     <div class="box-body table-responsive no-padding clearfix">
         <table class="table table-striped table-bordered table-hover">
             <tbody>
                 <tr>
-                    <th>id</th>
+<!--                    <th>id</th>-->
                     <th><?= yii::t('host', 'ip') ?></th>
                     <th><?= yii::t('host', 'idc') ?></th>
                     <th><?= yii::t('host', 'host_group') ?></th>
@@ -67,7 +83,7 @@ use app\models\User;
                 </tr>
                 <?php foreach ($hostList as $row) {?>
                     <tr>
-                        <td><?= $row['id'] ?></td>
+<!--                        <td>--><?//= $row['id'] ?><!--</td>-->
                         <td><?= $row['ip'] ?></td>
                         <td><?= \app\models\Idc::getNameById($row['idc']) ?></td>
                         <td><?= \app\models\HostGroup::findGroupNameStr($row['id']) ?></td>

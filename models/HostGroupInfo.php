@@ -72,7 +72,9 @@ class HostGroupInfo extends LogActiveRecord
      * 获取所有分组信息
      */
     public static function getGroupList(){
-        return static::find()->all();
+//        return static::find()->all();
+        $rows = (new \yii\db\Query())->select('id, name')->from('host_group_info')->orderBy(['name' => SORT_ASC,])->all();
+        return $rows;
     }
 
     /**
@@ -82,7 +84,7 @@ class HostGroupInfo extends LogActiveRecord
         $group_array = array();
         $list = self::getGroupList();
         foreach ($list as $group){
-            $group_array[$group->id]=$group->name;
+            $group_array[$group['id']]=$group['name'];
         }
         return $group_array;
     }
